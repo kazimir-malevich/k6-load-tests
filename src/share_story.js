@@ -3,7 +3,7 @@
 import http from 'k6/http'
 import { group, sleep, check } from 'k6';
 
-export default function() {
+export default function () {
 
   group('sign in with cookies', function () {
     const jar = http.cookieJar();
@@ -16,13 +16,12 @@ export default function() {
     check(res, {
       'homepage is status 200': (r) => r.status === 200,
       'verify homepage text': (r) =>
-      r.body.includes('Your account'),
+        r.body.includes('Your account'),
     });
   });
 
   group('share story', function () {
-
-    const json =  {
+    const json = {
       "display_text": "This is an automated test",
       "source_id": 6173,
       "opt_in_response": false,
@@ -62,7 +61,7 @@ export default function() {
     check(res, {
       'share story status 200': (r) => r.status === 200,
       'verify some "share story" respone text': (r) =>
-      r.body.includes('This is an automated test"'),
+        r.body.includes('This is an automated test"'),
     });
   });
 }
